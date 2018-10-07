@@ -21,16 +21,16 @@ var waitTimesSchema = new Schema({
     },
     status: String,
     lastUpdate: Date,
-    // schedule: {
-    //     openingTime: TimeRanges,
-    //     closingTime: TimeRanges,
-    //     type: String,
-    //     special: [
-    //         {openingTime: TimeRanges},
-    //         {closingTime: TimeRanges},
-    //         {type: String}
-    //     ]
-    // }
+    schedule: {
+        openingTime: String,
+        closingTime: String,
+        type: String,
+        special: [
+            {openingTime: String},
+            {closingTime: String},
+            {type: String}
+        ]
+    }
 })
 
 // Create the WaitTimes model using the waitTimesSchema

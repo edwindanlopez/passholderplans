@@ -11,7 +11,9 @@ const session = require('express-session');
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 // Serve up static assets
-app.use(express.static("client/build"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
  // For Passport
 app.use(session({ secret: 'superSecretpassholder',resave: true, saveUninitialized:true})); // session secret

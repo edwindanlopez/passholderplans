@@ -2,7 +2,7 @@ module.exports = function (passport) {
 	const path = require("path");
 	const router = require('express').Router();
 	const waitTimesRoutes = require("./waitTimes-api");
-
+	
 	router.use("/auth",require("./authRoutes.js")(passport));
 	router.use("/api",require("./apiRoutes.js")(passport));
 	router.use("/waitTimes-api", waitTimesRoutes);

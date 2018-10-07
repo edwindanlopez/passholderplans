@@ -2,26 +2,93 @@
 // ============================
 var db = require("../models");
 
+// include the Themeparks library
+var Themeparks = require("themeparks");
+
+// access a specific park
+var MagicKingdom = new Themeparks.Parks.WaltDisneyWorldMagicKingdom();
+var Epcot = new Themeparks.Parks.WaltDisneyWorldEpcot();
+var HollywoodStudios = new Themeparks.Parks.WaltDisneyWorldHollywoodStudios();
+var AnimalKingdom = new Themeparks.Parks.WaltDisneyWorldAnimalKingdom();
+
 module.exports = {
-  // Find all waitTimes, sort them by ?, send them back to the user
-  findAll: function(req, res) {
-    db.WaitTimes
-      .find(req.query)
-      // .sort({ date: -1 })
-      .then(function(dbWaitTimes) {
-        res.json(dbWaitTimes);
-      });
+  // Find all waitTimes, display name, wait time, and status, send them back to the user
+  findAll: function (req, res) {
+    MagicKingdom.GetWaitTimes().then(function (rides) {
+      // print each wait time
+      for (var i = 0, ride; ride = rides[i++];) {
+        console.log(`${ride.name}: ${ride.waitTime} minutes wait
+status: ${ride.status}
+********************************************`);
+      }
+    }, console.error);
+    Epcot.GetWaitTimes().then(function (rides) {
+      // print each wait time
+      for (var i = 0, ride; ride = rides[i++];) {
+        console.log(`${ride.name}: ${ride.waitTime} minutes wait
+status: ${ride.status}
+********************************************`);
+      }
+    }, console.error);
+    HollywoodStudios.GetWaitTimes().then(function (rides) {
+      // print each wait time
+      for (var i = 0, ride; ride = rides[i++];) {
+        console.log(`${ride.name}: ${ride.waitTime} minutes wait
+status: ${ride.status}
+********************************************`);
+      }
+    }, console.error);
+    AnimalKingdom.GetWaitTimes().then(function (rides) {
+      // print each wait time
+      for (var i = 0, ride; ride = rides[i++];) {
+        console.log(`${ride.name}: ${ride.waitTime} minutes wait
+status: ${ride.status}
+********************************************`);
+      }
+    }, console.error);
   },
-  // Delete the specified waitTimes
-  delete: function(req, res) {
-    db.WaitTimes.remove({ _id: req.params.id }).then(function(dbWaitTimes) {
-      res.json(dbWaitTimes);
-    });
+  // Find waitTimes for Magic Kingdom, display name, wait time, and status, send them back to the user
+  findMagicKingdom: function (req, res) {
+    MagicKingdom.GetWaitTimes().then(function (rides) {
+      // print each wait time
+      for (var i = 0, ride; ride = rides[i++];) {
+        console.log(`${ride.name}: ${ride.waitTime} minutes wait
+status: ${ride.status}
+********************************************`);
+      }
+    }, console.error);
   },
-  // Update the specified headline
-  update: function(req, res) {
-    db.WaitTimes.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true }).then(function(dbWaitTimes) {
-      res.json(dbWaitTimes);
-    });
+  // Find waitTimes for Epcot, display name, wait time, and status, send them back to the user
+  findEpcot: function (req, res) {
+    Epcot.GetWaitTimes().then(function (rides) {
+      // print each wait time
+      for (var i = 0, ride; ride = rides[i++];) {
+        console.log(`${ride.name}: ${ride.waitTime} minutes wait
+status: ${ride.status}
+********************************************`);
+      }
+    }, console.error);
+  },
+  // Find waitTimes for Hollywood Studios, display name, wait time, and status, send them back to the user
+  findHollywoodStudios: function (req, res) {
+    Epcot.GetWaitTimes().then(function (rides) {
+      // print each wait time
+      for (var i = 0, ride; ride = rides[i++];) {
+        console.log(`${ride.name}: ${ride.waitTime} minutes wait
+status: ${ride.status}
+********************************************`);
+      }
+    }, console.error);
+  },
+  // Find waitTimes for Animal Kingdom, display name, wait time, and status, send them back to the user
+  findAnimalKingdom: function (req, res) {
+    Epcot.GetWaitTimes().then(function (rides) {
+      // print each wait time
+      for (var i = 0, ride; ride = rides[i++];) {
+        console.log(`${ride.name}: ${ride.waitTime} minutes wait
+status: ${ride.status}
+********************************************`);
+      }
+    }, console.error);
   }
 };
