@@ -1,14 +1,50 @@
-import React from 'react';
-import "./style.css";
+import React, { Component } from "react";
+import "./home.css";
+import Navigation from '../../components/Navigation';
+import Materialize from "materialize-css/dist/js/materialize.min.js";
+import "materialize-css/dist/css/materialize.min.css";
 
-const Home = (props) =>{
-	return (
-		<div>
-			<h1>You should only see this if you are logged in!</h1>
-			<p>{props.auth.username}</p>
-			<button onClick = {props.handleLogout}>Log Out</button>
-		</div>
-	);
+import Attractions from "../../components/Attractions";
+import Dinning from "../../components/Dinning";
+
+class Home extends Component{
+
+    componentDidMount() {
+		const elem = document.querySelector('.tabs');
+     	const options = {}
+        const instance = Materialize.Tabs.init(elem, options);
+    }
+
+	render() {
+        return(
+            <div>  
+                <Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
+
+                <div className="container">
+
+					<div className="row">
+						<div className="col s12">
+							<ul className="tabs">
+								<li className="tab col s3"><a href="#attractions">Attractions</a></li>
+								<li className="tab col s3"><a href="#dinning">Dinning</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div className="data-shell">
+						<div id="attractions" className="col s12">
+							<Attractions />
+						</div>
+						<div id="dinning" className="col s12">
+							<Dinning />
+						</div>
+					</div>
+
+                </div>
+            </div>
+        );  
+	}
+
 };
 
 export default Home;
