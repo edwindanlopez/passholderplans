@@ -31,7 +31,7 @@ mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
 //add mongo heroku uri
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/passholder-development"
+  process.env.MONGODB_URI || "mongodb://localhost:27017/passholder-development", { useNewUrlParser: true }
 );
 
 // Start the API server
