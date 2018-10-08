@@ -23,7 +23,7 @@ class Home extends Component{
                 <div className="container">
 
 					<div className="row">
-						<div className="col s12">
+						<div className="col s12 centered-tabs">
 							<ul className="tabs">
 								<li className="tab col s3"><a href="#attractions">Attractions</a></li>
 								<li className="tab col s3"><a href="#dinning">Dinning</a></li>
@@ -33,7 +33,7 @@ class Home extends Component{
 
 					<div className="data-shell">
 						<div id="attractions" className="col s12">
-							<Attractions />
+							<Attractions auth={this.props.auth}/>
 						</div>
 						<div id="dinning" className="col s12">
 							<Dinning />

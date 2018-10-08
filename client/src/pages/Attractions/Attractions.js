@@ -30,7 +30,7 @@ class Attractions extends Component {
 
                 <div className="container">
                     <h1>These are the attractions that you're seeing now</h1>
-                    <p>{this.props.auth.username}</p>
+                    {this.props.auth.username}
                     {this.state.waitTimes.map(waitTime => (
                         <Time
                             key={waitTime._id}

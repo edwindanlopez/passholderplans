@@ -1,3 +1,13 @@
 .data-shell{
     margin: 2rem auto;
 }
+
+/*---------------------------------*/
+/*This centers the tabs*/
+ul.tabs {
+    text-align: center !important;
+}
+li.tab.col.s3 {
+    float: none;
+}
+/*---------------------------------*/
