@@ -17,33 +17,34 @@ module.exports = {
     MagicKingdom.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(`${ride.name}: ${ride.waitTime} minutes wait
-status: ${ride.status}
-********************************************`);
+        res.json(rides);
+//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+// status: ${ride.status}
+// ********************************************`);
       }
     }, console.error);
     Epcot.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(`${ride.name}: ${ride.waitTime} minutes wait
-status: ${ride.status}
-********************************************`);
+//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+// status: ${ride.status}
+// ********************************************`);
       }
     }, console.error);
     HollywoodStudios.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(`${ride.name}: ${ride.waitTime} minutes wait
-status: ${ride.status}
-********************************************`);
+//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+// status: ${ride.status}
+// ********************************************`);
       }
     }, console.error);
     AnimalKingdom.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(`${ride.name}: ${ride.waitTime} minutes wait
-status: ${ride.status}
-********************************************`);
+//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+// status: ${ride.status}
+// ********************************************`);
       }
     }, console.error);
   },
@@ -52,9 +53,9 @@ status: ${ride.status}
     MagicKingdom.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(`${ride.name}: ${ride.waitTime} minutes wait
-status: ${ride.status}
-********************************************`);
+//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+// status: ${ride.status}
+// ********************************************`);
       }
     }, console.error);
   },
@@ -63,9 +64,9 @@ status: ${ride.status}
     Epcot.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(`${ride.name}: ${ride.waitTime} minutes wait
-status: ${ride.status}
-********************************************`);
+//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+// status: ${ride.status}
+// ********************************************`);
       }
     }, console.error);
   },
@@ -74,9 +75,9 @@ status: ${ride.status}
     Epcot.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(`${ride.name}: ${ride.waitTime} minutes wait
-status: ${ride.status}
-********************************************`);
+//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+// status: ${ride.status}
+// ********************************************`);
       }
     }, console.error);
   },
@@ -85,9 +86,9 @@ status: ${ride.status}
     Epcot.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(`${ride.name}: ${ride.waitTime} minutes wait
-status: ${ride.status}
-********************************************`);
+//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+// status: ${ride.status}
+// ********************************************`);
       }
     }, console.error);
   }

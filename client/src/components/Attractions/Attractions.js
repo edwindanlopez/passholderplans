@@ -17,7 +17,7 @@ class Attractions extends Component {
     }
 
     waitTimesInfo = () => {
-        API.getWaitTimes({})
+        API.getWaitTimes()
             .then(res =>
                 this.setState({
                     waitTimes: res.data
@@ -38,12 +38,7 @@ class Attractions extends Component {
                             _id={waitTime._id}
                             name={waitTime.name}
                             waitTime={waitTime.waitTime}
-                            active={waitTime.active}
-                            fastPass={waitTime.fastPass}
-                            fastPassReturnTime={waitTime.fastPassReturnTime}
                             status={waitTime.status}
-                            lastUpdate={waitTime.lastUpdate}
-                            schedule={waitTime.schedule}
                         />
                     
                     ))}

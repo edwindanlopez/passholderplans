@@ -6,12 +6,7 @@ const Time = (props) => (
         <p>
         {props._id}
         {props.waitTime}
-        {props.active}
-        {props.fastPass}
-        {props.fastPassReturnTime}
         {props.status}
-        {props.lastUpdate}
-        {props.schedule}
         </p>
     </div>
 )
