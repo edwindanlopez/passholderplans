@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import "./attractions.css";
-import Navigation from '../../components/Navigation';
-import Time from '../../components/Time'
+import Materialize from "materialize-css/dist/js/materialize.min.js";
+import "materialize-css/dist/css/materialize.min.css";
+
+import Navigation from "../Navigation";
+import Time from '../Time'
 import API from "../../utils/API";
 
 class Attractions extends Component {
@@ -26,11 +29,9 @@ class Attractions extends Component {
     render() {
         return (
             <div>
-                <Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username} />
 
                 <div className="container">
                     <h1>These are the attractions that you're seeing now</h1>
-                    {this.props.auth.username}
                     {this.state.waitTimes.map(waitTime => (
                         <Time
                             key={waitTime._id}

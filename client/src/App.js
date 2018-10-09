@@ -6,7 +6,6 @@ import axios from 'axios';
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
-import Attractions from "./pages/Attractions";
 
 class App extends Component {
   state = {
@@ -120,7 +119,7 @@ class App extends Component {
         <div>
           <Route exact path = "/" render = {()=> {
             if(loggedIn){
-              return <Redirect to = "/attractions" />
+              return <Redirect to = "/home" />
             } else{
               return <SignIn 
                 handleChange= {this.handleChange} 
@@ -133,7 +132,7 @@ class App extends Component {
           }}/>
           <Route exact path = "/signup" render = {()=> {
             if(loggedIn){
-              return <Redirect to = "/attractions" />
+              return <Redirect to = "/home" />
             } else{
               return <SignUp 
                 handleChange= {this.handleChange} 
@@ -150,15 +149,7 @@ class App extends Component {
             if(!loggedIn){
               return <Redirect to = "/" />
             } else {
-              return <Home handleLogout = {this.handleLogout} auth = { this.state.auth }/>
-            } 
-          }
-          }/>
-          <Route exact path = "/Attractions" render = {()=> {
-            if(!loggedIn){
-              return <Redirect to = "/" />
-            } else {
-              return <Attractions handleLogout={this.handleLogout} auth={ this.state.auth } user={this.state.auth}/>
+              return <Home handleLogout={this.handleLogout} auth={this.state.auth}/>
             } 
           }
           }/>
