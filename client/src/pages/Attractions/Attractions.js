@@ -44,7 +44,6 @@ class Attractions extends Component {
                             lastUpdate={waitTime.lastUpdate}
                             schedule={waitTime.schedule}
                         />
-                    
                     ))}
                 </div>
             </div>
