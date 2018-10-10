@@ -14,16 +14,18 @@ class Attractions extends Component {
 
     componentDidMount() {
         this.waitTimesInfo();
+        console.log(this.waitTimes);
     }
 
     waitTimesInfo = () => {
         API.getWaitTimes()
-            .then(res =>
+            .then(res => {
                 this.setState({
                     waitTimes: res.data
                 })
-            )
-            .catch(err => console.log(err));
+                console.log("This is logging the res.data" + res);
+            })
+            .catch(err => console.log(err));    
     };
 
 

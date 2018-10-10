@@ -19,10 +19,9 @@ export default {
         // }
         return axios.get("/waitTimes-api");
         
-    // }
     }
+}
 //switch statement
 //default method would be to search all
 //need some way to get input from user about which park
-//you'll pass that park id through the switch statement and use it to return a different call
-} 
+//you'll pass that park id through the switch statement and use it to return a different call. 
