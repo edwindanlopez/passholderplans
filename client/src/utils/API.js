@@ -2,13 +2,7 @@ import axios from "axios";
 
 //check export against example to make sure export is done correctly
 export default {
-
-    // Gets waitTimes
-    getWaitTimes: function() {
-        return axios.get("/waitTimes-api");
-    }
-
-    // getWaitTimes: function (id) {
+    getWaitTimes: function () {
         //put the switch statement within this function
         // switch(id){
         //     case "magic-kingdom":
@@ -23,10 +17,12 @@ export default {
         //         //find all version
         //         return axios.get("/waitTimes-api");
         // }
+        return axios.get("/waitTimes-api");
         
     // }
-};
+    }
 //switch statement
 //default method would be to search all
 //need some way to get input from user about which park
-//you'll pass that park id through the switch statement and use it to return a different call. 
+//you'll pass that park id through the switch statement and use it to return a different call
+} 
