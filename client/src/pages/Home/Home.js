@@ -5,7 +5,7 @@ import Materialize from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 
 import Attractions from "../../components/Attractions";
-import Dinning from "../../components/Dinning";
+import Dining from "../../components/Dining";
 
 class Home extends Component{
 
@@ -26,7 +26,7 @@ class Home extends Component{
 						<div className="col s12 centered-tabs">
 							<ul className="tabs">
 								<li className="tab col s3"><a href="#attractions">Attractions</a></li>
-								<li className="tab col s3"><a href="#dinning">Dinning</a></li>
+								<li className="tab col s3"><a href="#dining">Dining</a></li>
 							</ul>
 						</div>
 					</div>
@@ -35,8 +35,8 @@ class Home extends Component{
 						<div id="attractions" className="col s12">
 							<Attractions auth={this.props.auth}/>
 						</div>
-						<div id="dinning" className="col s12">
-							<Dinning />
+						<div id="dining" className="col s12">
+							<Dining />
 						</div>
 					</div>
 

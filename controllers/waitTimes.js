@@ -1,15 +1,15 @@
 // Controller for our waitTimes
 // ============================
-var db = require("../models");
+const db = require("../models");
 
 // include the Themeparks library
-var Themeparks = require("themeparks");
+const Themeparks = require("themeparks");
 
 // access a specific park
-var MagicKingdom = new Themeparks.Parks.WaltDisneyWorldMagicKingdom();
-var Epcot = new Themeparks.Parks.WaltDisneyWorldEpcot();
-var HollywoodStudios = new Themeparks.Parks.WaltDisneyWorldHollywoodStudios();
-var AnimalKingdom = new Themeparks.Parks.WaltDisneyWorldAnimalKingdom();
+const MagicKingdom = new Themeparks.Parks.WaltDisneyWorldMagicKingdom();
+const Epcot = new Themeparks.Parks.WaltDisneyWorldEpcot();
+const HollywoodStudios = new Themeparks.Parks.WaltDisneyWorldHollywoodStudios();
+const AnimalKingdom = new Themeparks.Parks.WaltDisneyWorldAnimalKingdom();
 
 module.exports = {
   // Find all waitTimes, display name, wait time, and status, send them back to the user
@@ -17,11 +17,12 @@ module.exports = {
     MagicKingdom.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        res.json(rides);
-//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
-// status: ${ride.status}
-// ********************************************`);
+
+        //         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+        // status: ${ride.status}
+        // ********************************************`);
       }
+      res.json(rides);
     }, console.error);
     Epcot.GetWaitTimes().then(function (rides) {
       // print each wait time
