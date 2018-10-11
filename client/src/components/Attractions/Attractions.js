@@ -7,6 +7,8 @@ import Navigation from "../Navigation";
 import Time from '../Time'
 import API from "../../utils/API";
 
+const selectedAmount = 1;
+
 class Attractions extends Component {
     state = {
         waitTimes: []
@@ -14,7 +16,6 @@ class Attractions extends Component {
 
     componentDidMount() {
         this.waitTimesInfo();
-        console.log(this.waitTimes);
     }
 
     waitTimesInfo = () => {
@@ -23,28 +24,29 @@ class Attractions extends Component {
                 this.setState({
                     waitTimes: res.data
                 })
-                console.log("This is logging the res.data" + res);
             })
             .catch(err => console.log(err));    
     };
-
 
     render() {
         return (
             <div>
 
                 <div className="container">
-                    <h1>These are the attractions that you're seeing now</h1>
-                    {this.state.waitTimes.map(waitTime => (
-                        <Time
-                            key={waitTime._id}
-                            _id={waitTime._id}
-                            name={waitTime.name}
-                            waitTime={waitTime.waitTime}
-                            status={waitTime.status}
-                        />
-                    
-                    ))}
+                    <h1>Pick up to 5 attractions you'd like to go for the day.</h1>
+                    <a className="waves-effect waves-light btn-large">{selectedAmount}</a>
+                    <div className="row">
+                        {this.state.waitTimes.map(waitTime => (
+                            <Time
+                                key={waitTime.id}
+                                _id={waitTime._id}
+                                name={waitTime.name}
+                                waitTime={waitTime.waitTime}
+                                status={waitTime.status}
+                            />
+                        
+                        ))}
+                    </div>
                 </div>
             </div>
         );

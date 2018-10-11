@@ -17,11 +17,12 @@ module.exports = {
     MagicKingdom.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        res.json(rides);
-//         console.log(`${ride.name}: ${ride.waitTime} minutes wait
-// status: ${ride.status}
-// ********************************************`);
+
+        //         console.log(`${ride.name}: ${ride.waitTime} minutes wait
+        // status: ${ride.status}
+        // ********************************************`);
       }
+      res.json(rides);
     }, console.error);
     Epcot.GetWaitTimes().then(function (rides) {
       // print each wait time

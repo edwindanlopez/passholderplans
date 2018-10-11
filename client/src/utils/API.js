@@ -20,7 +20,7 @@ export default {
         return axios.get("/waitTimes-api");
         
     }
-}
+};
 //switch statement
 //default method would be to search all
 //need some way to get input from user about which park
