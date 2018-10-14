@@ -1,0 +1,10 @@
+.container{
+    margin: 1rem auto;
+}
+ul.collection {
+    min-height: 8rem !important;
+}
+.list-content{
+    width: 70% !important;
+    overflow-wrap: break-word;
+}

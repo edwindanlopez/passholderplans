@@ -1,3 +1,12 @@
-.container{
-    padding: 2rem;
+
+.counter-dial {
+    background-color: #efdbdd;
+    margin: 0;
+    text-align: center;
+    border-radius: 5px;
+}
+.counter-dial h2 {
+    font-size: 7rem;
+    color: #5a8ccc;
+    padding: 1rem;
 }
