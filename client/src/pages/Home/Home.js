@@ -33,7 +33,8 @@ class Home extends Component{
 
 					<div className="data-shell">
 						<div id="attractions" className="col s12">
-							<Attractions auth={this.props.auth.username}/>
+							<Attractions auth={this.props.auth.username} id={this.props.auth.userId}/>
+							{console.log(this.props.auth._id)}
 						</div>
 						<div id="dining" className="col s12">
 							<Dining />

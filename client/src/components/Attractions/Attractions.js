@@ -76,7 +76,7 @@ class Attractions extends Component {
 
         //Store data for firebase and mongo
         let groupName = document.getElementById("group_name").value;
-        let userId = fetchId;
+        let userId = this.props.id;
         let userName = this.props.auth;
         let pickedArray = this.state.picked;
 
@@ -97,7 +97,7 @@ class Attractions extends Component {
             });
 
         }
-        // createEvent();
+        createEvent();
 
         //Materialize modal trigger
         let options = {inDuration: 250}
@@ -152,11 +152,13 @@ class Attractions extends Component {
                     <div id="modal1" className="modal bottom-sheet">
                         <div className="modal-content">
                         <h4>Your planning is half-way done!</h4>
-                        <p>Share this with your friends in the next screen, and we'll take care of coordinating thigns for you.</p>
+                        <p>Share this with your friends in the next screen, and we'll take care of coordinating things for you.</p>
                         <div className="input-shell">
                             <div className="input-field col s6">
-                            <input className="center" placeholder="Mickey's Squad" id="group_name" type="text"/>
+                            <i class="material-icons prefix">account_circle</i>
+                            <input className="center" placeholder="Mickey's Squad" id="group_name" type="text" class="validate" required="true" aria-required="true"/>
                             <label className="active">ENTER YOUR GROUPS NAME</label>
+                            <span class="helper-text" data-error="Please type in a valid group name" data-success="Good to go">Helper text</span>
                             </div>
                         </div>
                         </div>
