@@ -6,6 +6,7 @@ import "materialize-css/dist/css/materialize.min.css";
 
 import Attractions from "../../components/Attractions";
 import Dining from "../../components/Dining";
+import ParkSelect from "../../components/ParkSelect";
 
 class Home extends Component{
 
@@ -19,10 +20,9 @@ class Home extends Component{
         return(
             <div>  
                 <Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
-
+{this.props.isparkselected ? (
                 <div className="container">
 					<div className="row">
-
 						<div className="col s12 centered-tabs">
 							<ul className="tabs">
 								<li className="tab col s3"><a href="#attractions">Attractions</a></li>
@@ -41,7 +41,7 @@ class Home extends Component{
 						</div>
 					</div>
 
-                </div>
+                </div>) : (<ParkSelect />)}
             </div>
         );  
 	}

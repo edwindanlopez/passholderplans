@@ -1,5 +1,5 @@
 var router = require("express").Router();
-var waitTimesController = require("../controllers/waitTimes");
+var waitTimesController = require("../controllers/waitTimesController");
 
 router.route("/").get(waitTimesController.findAll);
 // router.route("/magic-kingdom").get(waitTimesController.findMagicKingdom);
