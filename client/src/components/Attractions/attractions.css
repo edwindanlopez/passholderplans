@@ -1,4 +1,3 @@
-
 .counter-dial {
     background-color: #efdbdd;
     margin: 0;
@@ -9,4 +8,30 @@
     font-size: 7rem;
     color: #5a8ccc;
     padding: 1rem;
+}
+.send-btn{
+    width: 100%;
+}
+/*Modal settings*/
+.modal.bottom-sheet{
+    max-height: 75%;
+    height: 47%;
+}
+.modal-content {
+    padding-top: 4rem !important;
+    text-align: center;
+}
+.input-shell{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem auto 1rem auto;
+}
+.input-field{
+    min-width: 20rem;
+}
+.input-field.col label {
+    width: 100%;
+    left: auto;
+    position: inherit;
 }

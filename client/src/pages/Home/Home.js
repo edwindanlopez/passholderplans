@@ -21,8 +21,8 @@ class Home extends Component{
                 <Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
 
                 <div className="container">
-
 					<div className="row">
+
 						<div className="col s12 centered-tabs">
 							<ul className="tabs">
 								<li className="tab col s3"><a href="#attractions">Attractions</a></li>
@@ -33,7 +33,7 @@ class Home extends Component{
 
 					<div className="data-shell">
 						<div id="attractions" className="col s12">
-							<Attractions auth={this.props.auth}/>
+							<Attractions auth={this.props.auth.username}/>
 						</div>
 						<div id="dining" className="col s12">
 							<Dining />
