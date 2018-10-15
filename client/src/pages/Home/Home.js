@@ -9,13 +9,6 @@ import Dining from "../../components/Dining";
 import ParkSelect from "../../components/ParkSelect";
 
 class Home extends Component{
-	state = {
-		isParkSelected: false
-	};
-
-	handleParkClick() {
-		this.setState({isParkSelected: true});
-	  };
 
     componentDidMount() {
 		const elem = document.querySelector('.tabs');
@@ -24,42 +17,27 @@ class Home extends Component{
     }
 
 	render() {
-		const isParkSelected = this.state.isParkSelected;
-
-		if (!isParkSelected) {
-			return(
-				<div>
-					<Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
-					<div className="container">
-						<div className="row">
-							<div className="col s12 centered-tabs">
-								<ul className="tabs">
-									<li className="tab col s3"><a href="#attractions">Attractions</a></li>
-									<li className="tab col s3"><a href="#dining">Dining</a></li>
-								</ul>
-							</div>
-						</div>
-					
-						<div className="data-shell">
-							<div id="attractions" className="col s12">
-								<Attractions auth={this.props.auth}/>
-							</div>
-							<div id="dining" className="col s12">
-								<Dining />
-							</div>
-						</div>
-	
-					</div>
-				</div>
-			);
-		} else {
         return(
-            <div>
-				<Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
-            	<div className="container">
+            <div>  
+                <Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
+
+                <div className="container">
+					<div className="row">
+
+						<div className="col s12 centered-tabs">
+							<ul className="tabs">
+								<li className="tab col s3"><a href="#attractions">Attractions</a></li>
+								<li className="tab col s3"><a href="#dining">Dining</a></li>
+							</ul>
+						</div>
+					</div>
+
 					<div className="data-shell">
-						<div id="parkOptions" className="col s12">
-							<ParkSelect />
+						<div id="attractions" className="col s12">
+							<Attractions auth={this.props.auth.username}/>
+						</div>
+						<div id="dining" className="col s12">
+							<Dining />
 						</div>
 					</div>
 
@@ -67,7 +45,7 @@ class Home extends Component{
             </div>
         );  
 	}
-	}
+
 };
 
 export default Home;
