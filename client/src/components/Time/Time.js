@@ -25,7 +25,7 @@ class Time extends Component{
 
     render(props) {
         return (
-            <div className="col s6">
+            <div className="col m12 l6">
                 <ul className="collection">
                     <li className="collection-item avatar">
                         <div className="list-content">
