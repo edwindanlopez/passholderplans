@@ -17,7 +17,6 @@ module.exports = {
     MagicKingdom.GetWaitTimes().then(function (rides) {
       // print each wait time
       for (var i = 0, ride; ride = rides[i++];) {
-        console.log(ride);
 //         console.log(`${ride.name}: ${ride.waitTime} minutes wait
 // status: ${ride.status}
 // ********************************************`);
