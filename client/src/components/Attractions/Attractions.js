@@ -97,7 +97,7 @@ class Attractions extends Component {
             });
 
         }
-        // createEvent();
+        createEvent();
 
         //Materialize modal trigger
         let options = {inDuration: 250}
