@@ -27,11 +27,14 @@ class Home extends Component{
 	pageSwitch() {
 		let pageModule;
 		if(this.state.activeComponent == "parkselect"){
-			pageModule = <Attractions auth={this.props.auth.username} id={this.props.auth.userId} next={this.changeComponent}/>
+			pageModule = <ParkSelect auth={this.props.auth.username} next={this.changeComponent}/>
+			return pageModule;
 		} else if(this.state.activeComponent == "attractions") {
-			pageModule = <ParkSelect auth={this.props.auth.username} next={this.changeComponent}/>	
+			pageModule = <Attractions auth={this.props.auth.username} id={this.props.auth.userId} next={this.changeComponent}/>
+			return pageModule;
 		} else if(this.state.activeComponent == "everyone") {
-			pageModule = <Everyone auth={this.props.auth.username} next={this.changeComponent}/>	
+			pageModule = <Everyone auth={this.props.auth.username} next={this.changeComponent}/>
+			return pageModule;
 		} else{
 
 		}
@@ -41,6 +44,9 @@ class Home extends Component{
 		const elem = document.querySelector('.tabs');
      	const options = {}
         const instance = Materialize.Tabs.init(elem, options);
+		this.setState({
+			activeComponent: "parkselect"
+		});
     }
 
 
@@ -48,7 +54,7 @@ class Home extends Component{
         return(
             <div>
                 <Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
-				{pageModule}
+				{this.pageSwitch()}
             </div>
         );  
 	}
