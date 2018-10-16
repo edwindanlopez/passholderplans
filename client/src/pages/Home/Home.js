@@ -4,44 +4,51 @@ import Navigation from '../../components/Navigation';
 import Materialize from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 
-import Attractions from "../../components/Attractions";
-import Dining from "../../components/Dining";
 import ParkSelect from "../../components/ParkSelect";
+import Attractions from "../../components/Attractions";
+import Everyone from "../../components/Everyone";
 
 class Home extends Component{
 
-    componentDidMount() {
+    state = {
+        activeComponent: ""
+    }
+
+
+	changeComponent= (incomingPage)=> {
+		//Variables of active components
+		let attractions = this.state.activeComponent;
+		console.log("Home change component function is working: " + incomingPage);
+		this.setState({
+			activeComponent: incomingPage
+		});
+	}
+
+	pageSwitch() {
+		let pageModule;
+		if(this.state.activeComponent == "parkselect"){
+			pageModule = <Attractions auth={this.props.auth.username} id={this.props.auth.userId} next={this.changeComponent}/>
+		} else if(this.state.activeComponent == "attractions") {
+			pageModule = <ParkSelect auth={this.props.auth.username} next={this.changeComponent}/>	
+		} else if(this.state.activeComponent == "everyone") {
+			pageModule = <Everyone auth={this.props.auth.username} next={this.changeComponent}/>	
+		} else{
+
+		}
+	}
+
+    componentDidMount = ()=> {
 		const elem = document.querySelector('.tabs');
      	const options = {}
         const instance = Materialize.Tabs.init(elem, options);
     }
 
+
 	render() {
         return(
-            <div>  
+            <div>
                 <Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
-{this.props.isparkselected ? (
-                <div className="container">
-					<div className="row">
-						<div className="col s12 centered-tabs">
-							<ul className="tabs">
-								<li className="tab col s3"><a href="#attractions">Attractions</a></li>
-								<li className="tab col s3"><a href="#dining">Dining</a></li>
-							</ul>
-						</div>
-					</div>
-
-					<div className="data-shell">
-						<div id="attractions" className="col s12">
-							<Attractions auth={this.props.auth.username} id={this.props.auth.userId}/>
-							{console.log(this.props.auth._id)}
-						</div>
-						<div id="dining" className="col s12">
-							<Dining />
-						</div>
-					</div>
-
-                </div>) : (<ParkSelect />)}
+				{pageModule}
             </div>
         );  
 	}

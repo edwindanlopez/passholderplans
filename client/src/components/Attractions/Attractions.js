@@ -72,8 +72,6 @@ class Attractions extends Component {
 
     sendChoices = () => {
 
-        const fetchId = "";//Hit backend route to get the current logged in user's id 
-
         //Store data for firebase and mongo
         let groupName = document.getElementById("group_name").value;
         let userId = this.props.id;
@@ -105,8 +103,16 @@ class Attractions extends Component {
         let instances = materialize.Modal.init(elems, options);        
         let elem = document.getElementById('modal1');
         let instance = materialize.Modal.getInstance(elem);
-        //Close modal
+        //Closes modal
         instance.close();
+
+
+        //Trigger next screen render
+        const nextRender = () =>{
+            let incomingPage = "everyone"
+            this.props.next(incomingPage);
+        }
+        nextRender();
     }
 
     componentDidMount() {
