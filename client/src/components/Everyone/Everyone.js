@@ -6,6 +6,7 @@ import axios from 'axios';
 import Time from '../Time'
 import API from "../../utils/API";
 import firebase from "../../firebase";
+import Share from "../Share/Share"
 
 class Everyone extends Component {
 
@@ -33,6 +34,7 @@ class Everyone extends Component {
             <div>
                 <div className="container">
                     <h2>This is everyone's component</h2>
+                    <Share />
                 </div>
             </div>
         );
