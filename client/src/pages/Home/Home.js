@@ -15,6 +15,11 @@ class Home extends Component{
 		event: ""
     }
 
+    componentDidMount = ()=> {
+		this.setState({
+			activeComponent: "attractions"
+		});
+    }
 
 	changeComponent= (incomingPage)=> {
 		//Variables of active components
@@ -30,14 +35,7 @@ class Home extends Component{
 		this.setState({
 			event:newEvent
 		})
-		let stringed = this.state.event;
-		console.log("Returning string: " + JSON.stringify(stringed));
-		return stringed;
 	}
-
-	newData = () => {
-		let stringed = this.state.event;
-	}	
 
 	pageSwitch() {
 		let pageModule;
@@ -54,15 +52,6 @@ class Home extends Component{
 
 		}
 	}
-
-    componentDidMount = ()=> {
-		const elem = document.querySelector('.tabs');
-     	const options = {}
-        const instance = Materialize.Tabs.init(elem, options);
-		this.setState({
-			activeComponent: "parkselect"
-		});
-    }
 
 
 	render(pageModule) {
