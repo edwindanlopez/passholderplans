@@ -4,6 +4,7 @@ import materialize from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 import API from "../../utils/API";
 import firebase from "../../firebase";
+import Share from "../Share"
 
 class Everyone extends Component {
 
@@ -76,6 +77,7 @@ class Everyone extends Component {
                                 </li>
                             </ul>
                         </div>
+                        <Share event={this.props.event} key={this.key} group={this.group} choices={this.choices}/>
                     </div>
                 </div>
             </div>
