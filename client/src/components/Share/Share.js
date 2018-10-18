@@ -3,6 +3,7 @@ import "./share.css";
 import Materialize from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 import firebase from '../../firebase';
+import Everyone from "../Everyone";
 
 const Share = (props) => {
 
@@ -13,11 +14,10 @@ const Share = (props) => {
         //     choices : pickedArray,
         //     userName: userName
         // }
-    const retrieveEvent = () => {
-        let ref = firebase.database().ref("events/");
+    const retrieveEvent = (uniqueKey) => {
+        let ref = firebase.database().ref("events/" + uniqueKey);
         ref.once("value")
             .then(function (snapshot) {
-                let uniqueKey = snapshot.key;
                 let groupName = snapshot.child().child(uniqueKey + "groupName").val();
                 let user = snapshot.child("user").val();
                 let id = snapshot.child("user/id").val();
@@ -26,11 +26,10 @@ const Share = (props) => {
                 
                 console.log("Group Name: " + groupName + "\n" + "Choices: " + choices);
             });
-            
     }
 
     return (
-        <button onClick={() => retrieveEvent()}>
+        <button onClick={() => retrieveEvent(this.props.event)}>
             Send Invite
         </button>
     )

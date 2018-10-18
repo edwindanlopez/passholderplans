@@ -6,7 +6,7 @@ import axios from 'axios';
 import Time from '../Time'
 import API from "../../utils/API";
 import firebase from "../../firebase";
-import Share from "../Share/Share"
+import Share from "../Share"
 
 class Everyone extends Component {
 
@@ -67,6 +67,7 @@ class Everyone extends Component {
                                 </li>
                             </ul>
                         </div>
+                        <Share event={this.props.event} key={this.key} group={this.group} choices={this.choices}/>
                     </div>
                 </div>
             </div>
