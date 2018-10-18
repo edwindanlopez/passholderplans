@@ -11,18 +11,33 @@ import Everyone from "../../components/Everyone";
 class Home extends Component{
 
     state = {
-        activeComponent: ""
+        activeComponent: "",
+		event: ""
     }
 
 
 	changeComponent= (incomingPage)=> {
 		//Variables of active components
 		let attractions = this.state.activeComponent;
-		console.log("Home change component function is working: " + incomingPage);
 		this.setState({
 			activeComponent: incomingPage
 		});
 	}
+
+	verifyKey = (madeEvent) => {
+		let newEvent = madeEvent
+		console.log("Home page logging the madeEvent: " + JSON.stringify(newEvent));
+		this.setState({
+			event:newEvent
+		})
+		let stringed = this.state.event;
+		console.log("Returning string: " + JSON.stringify(stringed));
+		return stringed;
+	}
+
+	newData = () => {
+		let stringed = this.state.event;
+	}	
 
 	pageSwitch() {
 		let pageModule;
@@ -30,10 +45,10 @@ class Home extends Component{
 			pageModule = <ParkSelect auth={this.props.auth.username} next={this.changeComponent}/>
 			return pageModule;
 		} else if(this.state.activeComponent == "attractions") {
-			pageModule = <Attractions auth={this.props.auth.username} id={this.props.auth.userId} next={this.changeComponent}/>
+			pageModule = <Attractions auth={this.props.auth.username} id={this.props.auth.userId} next={this.changeComponent} verKey={this.verifyKey}/>
 			return pageModule;
 		} else if(this.state.activeComponent == "everyone") {
-			pageModule = <Everyone auth={this.props.auth.username} next={this.changeComponent}/>
+			pageModule = <Everyone auth={this.props.auth.username} next={this.changeComponent} recieveEvent={this.state.event}/>
 			return pageModule;
 		} else{
 
@@ -50,10 +65,11 @@ class Home extends Component{
     }
 
 
-	render() {
+	render(pageModule) {
         return(
             <div>
                 <Navigation handleLogout={this.props.handleLogout} auth={this.props.auth.username}/>
+				{/* <Everyone auth={this.props.auth.username} next={this.changeComponent}/> */}
 				{this.pageSwitch()}
             </div>
         );  

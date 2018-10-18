@@ -31,7 +31,6 @@ class Time extends Component{
                         <div className="list-content">
                             <i className="material-icons circle">drag_handle</i>
                             <span className="title">{this.props.name}</span>
-                            {/* <p>{"ID: " + this.props.rideId}</p> */}
                             <p id="rideWaitTime">{"Wait Time: " + this.props.waitTime}</p>
                             <p id="rideStatus">{"Status: " + this.props.status}</p>
                             <div className="secondary-content">
@@ -45,7 +44,6 @@ class Time extends Component{
                                 </div>
                             </div>
                         </div>
-
                     </li>
                 </ul>
             </div>
