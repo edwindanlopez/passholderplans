@@ -2,8 +2,6 @@ import React, { Component} from "react";
 import "./everyone.css";
 import materialize from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
-import axios from 'axios';
-import Time from '../Time'
 import API from "../../utils/API";
 import firebase from "../../firebase";
 import Share from "../Share"
@@ -37,11 +35,23 @@ class Everyone extends Component {
 
     generate = () => {
         const event  = this.props.recieveEvent;
-        let key = JSON.stringify(event.uniqueKey);
+        // let key = JSON.stringify(event.uniqueKey);
+        let key = "-LP3bWQw6heItSbIEBrh";
         let group = JSON.stringify(event.groupName);
         let user = JSON.stringify(event.username);
         let choices = JSON.stringify(event.userChoices);
-        console.log("This is the Unique Key!!!!!!" + key);
+        
+        let everyonesChoices = firebase.database().ref("events" + key);
+        everyonesChoices.on('child_added', (data)=>{
+            console.log("This is the data group: " + data.group);
+            // displayListing(data.group, data.user, data.choices.val());
+        });
+
+        let displayListing = ()=> {
+
+        }
+
+
     }
 
     render() {
