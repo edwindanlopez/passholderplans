@@ -17,7 +17,7 @@ const Share = (props) => {
         let ref = firebase.database().ref("events/");
         ref.once("value")
             .then(function (snapshot) {
-                let uniqueKey = snapshot.key
+                let uniqueKey = snapshot.key;
                 let groupName = snapshot.child().child(uniqueKey + "groupName").val();
                 let user = snapshot.child("user").val();
                 let id = snapshot.child("user/id").val();

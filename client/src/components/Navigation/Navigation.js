@@ -13,20 +13,15 @@ class Navigation extends Component {
             edge: "left",
             inDuration: 250
         });
-        //Chip object
-        const chip = {
-            tag: 'chip content',
-            image: '/images/female-user.png', //optional
-        };
-        //Materialize chips
-        document.addEventListener('DOMContentLoaded', function() {
-            const chipElem = document.querySelectorAll('.chips');
-            const chips = Materialize.Chips.init(chipElem, chip);
-            chips;
+
+        var elems = document.querySelectorAll('.chips')
+        var instances = Materialize.Chips.init(elems, {
+            tag: this.props.auth,
+            image: '../../images/male-user.png'
         });
     }
 
-    render() {
+    render(chip) {
         return (
             <div>
                 <nav>
@@ -35,11 +30,10 @@ class Navigation extends Component {
                     <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                     <ul className="right hide-on-med-and-down">
                         <li>
-                            {/* {"Welcome: "+ this.props.auth} */}
-                            <div className="chip">
-                                <img src="../../../public/images/female-user.png"/>
-                                Jane Doe
-                            </div>
+                        <div className="chip">
+                            <img src={require("../../images/male-user.png")}/>
+                            {"Welcome: "+ this.props.auth}
+                        </div>
                         </li>
                         <li><a onClick = {this.props.handleLogout}>Log Out</a></li>
                     </ul>

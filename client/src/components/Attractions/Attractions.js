@@ -72,6 +72,8 @@ class Attractions extends Component {
 
     sendChoices = () => {
 
+        const that = this;
+
         //Store data for firebase and mongo
         let groupName = document.getElementById("group_name").value;
         let userId = this.props.id;
@@ -84,18 +86,29 @@ class Attractions extends Component {
         console.log("Picked array: " + pickedArray);
 
         //Push to firebase
-        const createEvent= ()=> {
-            firebase.database().ref("events/").push({
+        const createEvent= (that)=> {
+            const them = that;
+            firebase.database().ref("events").push({
                 groupName: groupName,
                 user : {
                     id: userId,
                     choices : pickedArray,
                     userName: userName
-                }
-            });
-
+                }//Then get data from the snapshot
+            }).then((snapshot)=>{
+                let uniquekey = snapshot.key
+                firebase.database().ref("events/" + uniquekey).on("value", function(snapshot){
+                    let madeEvent = {
+                        uniqueKey: snapshot.key,
+                        groupName: snapshot.child("groupName").val(),
+                        username: snapshot.child("user/userName").val(),
+                        userChoices:snapshot.child("user/choices").val()
+                    }
+                    them.props.verKey(madeEvent)
+                })
+            })
         }
-        createEvent();
+        createEvent(that);
 
         //Materialize modal trigger
         let options = {inDuration: 250}
@@ -161,10 +174,10 @@ class Attractions extends Component {
                         <p>Share this with your friends in the next screen, and we'll take care of coordinating things for you.</p>
                         <div className="input-shell">
                             <div className="input-field col s6">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input className="center" placeholder="Mickey's Squad" id="group_name" type="text" class="validate" required="true" aria-required="true"/>
+                            <i className="material-icons prefix">account_circle</i>
+                            <input className="center" placeholder="Mickey's Squad" id="group_name" type="text" className="validate" required={true} aria-required="true"/>
                             <label className="active">ENTER YOUR GROUPS NAME</label>
-                            <span class="helper-text" data-error="Please type in a valid group name" data-success="Good to go">Helper text</span>
+                            <span className="helper-text" data-error="Please type in a valid group name" data-success="Good to go"></span>
                             </div>
                         </div>
                         </div>
