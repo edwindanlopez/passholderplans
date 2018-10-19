@@ -3,7 +3,7 @@ import "./home.css";
 import Navigation from '../../components/Navigation';
 import Materialize from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
-
+import axios from 'axios';
 import ParkSelect from "../../components/ParkSelect";
 import Attractions from "../../components/Attractions";
 import Everyone from "../../components/Everyone";
@@ -12,7 +12,8 @@ class Home extends Component{
 
     state = {
         activeComponent: "",
-		event: ""
+		user: "",
+		userEvents: []
     }
 
     componentDidMount = ()=> {
@@ -22,19 +23,34 @@ class Home extends Component{
     }
 
 	changeComponent= (incomingPage)=> {
-		//Variables of active components
-		let attractions = this.state.activeComponent;
 		this.setState({
 			activeComponent: incomingPage
 		});
 	}
 
-	verifyKey = (madeEvent) => {
-		let newEvent = madeEvent
-		console.log("Home page logging the madeEvent: " + JSON.stringify(newEvent));
-		this.setState({
-			event:newEvent
+	verifyKey = (userId, eventUniqueKey) => {
+		console.log("Logging user id: " + userId + " and event key: " + eventUniqueKey + " All coming back from Attraction component");
+		let usersCurrentEvents = this.state.userEvents;
+		// usersCurrentEvents.push(eventUniqueKey);
+		// console.log("userEvents from state: " + this.state.userEvents);
+
+		axios.post("/user/userdata", {
+			events: eventUniqueKey
 		})
+		.then(function (response) {
+			console.log("Looging response on the front end: " + response);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+
+
+		//Set state with this information
+		// this.setState({
+		// 	user: userId,
+		// 	userEvents: userEvents
+		// })
+		// console.log("Logging user events from state: " + this.state.userEvents);
 	}
 
 	pageSwitch() {

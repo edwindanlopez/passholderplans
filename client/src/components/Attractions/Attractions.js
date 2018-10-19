@@ -74,39 +74,46 @@ class Attractions extends Component {
 
         const that = this;
 
-        //Store data for firebase and mongo
-        let groupName = document.getElementById("group_name").value;
-        let userId = this.props.id;
-        let userName = this.props.auth;
-        let pickedArray = this.state.picked;
-
-        console.log("This is the group name: " + groupName);
-        console.log("UserId: " + userId);
-        console.log("Username: " + userName);
-        console.log("Picked array: " + pickedArray);
-
         //Push to firebase
-        const createEvent= (that)=> {
+        const createEvent= (that, username)=> {
+
             const them = that;
-            firebase.database().ref("events").push({
+
+            //Store data for firebase and mongo
+            let groupName = document.getElementById("group_name").value;
+            let userId = this.props.id;
+            let userName = this.props.auth;
+            let pickedArray = this.state.picked;
+
+            // console.log("This is the group name: " + groupName);
+            // console.log("UserId: " + userId);
+            // console.log("Username: " + userName);
+            // console.log("Picked array: " + pickedArray);
+
+            console.log("This username is being passed into firebase function: " + userName)
+
+            let eventsRef = firebase.database().ref("events");
+            let usersRef = firebase.database().ref("/users");
+            
+            //Set up users branch
+            usersRef.child("/"+ userId).set({
+                username: userName,
+                choices: pickedArray
+            });
+            //Set up events branch
+            eventsRef.push({
                 groupName: groupName,
-                user : {
-                    id: userId,
-                    choices : pickedArray,
-                    userName: userName
-                }//Then get data from the snapshot
-            }).then((snapshot)=>{
+                userid: userId
+            })//Already have the user ID. Just neet to grab the unique generated key (With promise below) in the events branch. Then pass that over to the "everyone" component.
+            .then((snapshot)=>{
                 let uniquekey = snapshot.key
-                firebase.database().ref("events/" + uniquekey).on("value", function(snapshot){
-                    let madeEvent = {
-                        uniqueKey: snapshot.key,
-                        groupName: snapshot.child("groupName").val(),
-                        username: snapshot.child("user/userName").val(),
-                        userChoices:snapshot.child("user/choices").val()
-                    }
-                    them.props.verKey(madeEvent)
+                firebase.database().ref("events/" + uniquekey).on("value", (snapshot)=> {
+                    let eventUniqueKey = snapshot.key;
+                    //Target the callback function "Home", through props, in order to pass this info back to parent.
+                    //Pass over the user id and event key
+                    them.props.verKey(userId, eventUniqueKey);
                 })
-            })
+            });
         }
         createEvent(that);
 
@@ -141,6 +148,8 @@ class Attractions extends Component {
         })
         .catch(err => console.log(err));    
     };
+
+
 
     render() {
         return (
