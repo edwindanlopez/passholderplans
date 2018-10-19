@@ -4,7 +4,7 @@ module.exports = function (passport) {
 	const waitTimesRoutes = require("./waitTimes-api");
 	
 	router.use("/auth",require("./authRoutes.js")(passport));
-	router.use("/api",require("./apiRoutes.js")(passport));
+	router.use("/user",require("./userData.js")(passport));
 	router.use("/waitTimes-api", waitTimesRoutes);
 	//add more routes here
 	

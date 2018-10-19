@@ -9,6 +9,7 @@ module.exports = function (passport) {
 			res.json({
 				userId: req.user._id,
 				username: req.user.username,
+				events: [],
 				isAuthenticated: true
 			});
 			//you can also pass up any other fields you with to expose
@@ -18,6 +19,7 @@ module.exports = function (passport) {
 			res.json({
 				userId: null,
 				username: null,
+				events: null,
 				isAuthenticated: false
 			});
 		}
@@ -35,6 +37,7 @@ module.exports = function (passport) {
 				res.json({
 					userId: user._id,
 					username: user.username,
+					events: [],
 					isAuthenticated: true
 				});
 			}
@@ -46,6 +49,7 @@ module.exports = function (passport) {
 		res.json({
 			userId: req.user._id,
 			username: req.user.username,
+			events: [],
 			isAuthenticated: true
 		});
 	});
