@@ -33,15 +33,24 @@ class Everyone extends Component {
     };
 
     generate = () => {
-        const event  = this.props.recieveEvent;
-        let key = JSON.stringify(event.uniqueKey);
-        let cleanKey = key.replace(/['"]+/g, '');
 
-        console.log(event);
+        //Grab the unique event key to populate the group name
+        
 
-        let group = JSON.stringify(event.groupName);
-        let user = JSON.stringify(event.username);
-        let choices = JSON.stringify(event.userChoices);
+        //Grab the user key to populate the choices and username
+
+        //Display that data on the page
+
+
+        // const event  = this.props.recieveEvent;
+        // let key = JSON.stringify(event.uniqueKey);
+        // let cleanKey = key.replace(/['"]+/g, '');
+
+        // console.log(event);
+
+        // let group = JSON.stringify(event.groupName);
+        // let user = JSON.stringify(event.username);
+        // let choices = JSON.stringify(event.userChoices);
 
         //Firebase call and logic to populate things
         let everyonesChoices = firebase.database().ref("events/" + cleanKey);

@@ -30,10 +30,11 @@ class Home extends Component{
 
 	verifyKey = (userId, eventUniqueKey) => {
 		console.log("Logging user id: " + userId + " and event key: " + eventUniqueKey + " All coming back from Attraction component");
+		//Set the state with the user id & their unique event keys
 		let usersCurrentEvents = this.state.userEvents;
-		// usersCurrentEvents.push(eventUniqueKey);
-		// console.log("userEvents from state: " + this.state.userEvents);
-
+		usersCurrentEvents.push(eventUniqueKey);
+		console.log("userEvents from state: " + this.state.userEvents + "And list of all user events: " + this.state.eventUniqueKey);
+		//Also push the unique id to the database for future user
 		axios.post("/user/userdata", {
 			events: eventUniqueKey
 		})
@@ -43,14 +44,6 @@ class Home extends Component{
 		.catch(function (error) {
 			console.log(error);
 		});
-
-
-		//Set state with this information
-		// this.setState({
-		// 	user: userId,
-		// 	userEvents: userEvents
-		// })
-		// console.log("Logging user events from state: " + this.state.userEvents);
 	}
 
 	pageSwitch() {
