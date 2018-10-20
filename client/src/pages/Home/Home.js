@@ -29,31 +29,24 @@ class Home extends Component{
 	}
 
 	verifyKey = (userId, eventUniqueKey) => {
-		console.log("Logging user id: " + userId + " and event key: " + eventUniqueKey + " All coming back from Attraction component");
-		let usersCurrentEvents = this.state.userEvents;
-		// usersCurrentEvents.push(eventUniqueKey);
-		// console.log("userEvents from state: " + this.state.userEvents);
+		//set state with all user events
+		let allUserEvents = this.state.userEvents;
+		allUserEvents.push(eventUniqueKey);
+		//Set state with user id
+		this.setState({user:userId});
 
+		//Also push the unique id to the database for future use
 		axios.post("/user/userdata", {
 			events: eventUniqueKey
-		})
-		.then(function (response) {
-			console.log("Looging response on the front end: " + response);
-		})
-		.catch(function (error) {
+		}).then(function (response) {
+			console.log("Axios response from home component: " + response);
+		}).catch(function (error) {
 			console.log(error);
 		});
-
-
-		//Set state with this information
-		// this.setState({
-		// 	user: userId,
-		// 	userEvents: userEvents
-		// })
-		// console.log("Logging user events from state: " + this.state.userEvents);
 	}
 
-	pageSwitch() {
+	pageSwitch(props) {
+		
 		let pageModule;
 		if(this.state.activeComponent == "parkselect"){
 			pageModule = <ParkSelect auth={this.props.auth.username} next={this.changeComponent}/>
@@ -62,7 +55,7 @@ class Home extends Component{
 			pageModule = <Attractions auth={this.props.auth.username} id={this.props.auth.userId} next={this.changeComponent} verKey={this.verifyKey}/>
 			return pageModule;
 		} else if(this.state.activeComponent == "everyone") {
-			pageModule = <Everyone auth={this.props.auth.username} next={this.changeComponent} recieveEvent={this.state.event}/>
+			pageModule = <Everyone auth={this.props.auth.username} next={this.changeComponent} recieveEvent={this.state.userEvents} creds={this.props.auth}/>
 			return pageModule;
 		} else{
 
