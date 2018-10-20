@@ -103,7 +103,7 @@ class Attractions extends Component {
             //Set up events branch
             eventsRef.push({
                 groupName: groupName,
-                userid: userId
+                [userId]: "userId"
             })//Already have the user ID. Just neet to grab the unique generated key (With promise below) in the events branch. Then pass that over to the "everyone" component.
             .then((snapshot)=>{
                 let uniquekey = snapshot.key

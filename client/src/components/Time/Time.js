@@ -37,7 +37,7 @@ class Time extends Component{
                                 <div className="switch">
                                     <label>
                                         {/* Off */}
-                                        <input id={this.props.id} type="checkbox" value={this.props.rideId} onClick={this.toggleSwitch}/>
+                                        <input id={this.props.id} type="checkbox" value={this.props.name} onClick={this.toggleSwitch}/>
                                         <span className="lever"></span>
                                         {/* On */}
                                     </label>
