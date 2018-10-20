@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import "./everyone.css";
 import materialize from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
@@ -15,25 +15,25 @@ class Everyone extends Component {
         this.waitTimesInfo();
         //Materialize accordion
         var elems = document.querySelectorAll('.collapsible');
-        var instances = materialize.Collapsible.init(elems, {});
+        var instances = materialize.Collapsible.init(elems,{});
         //Generate firebase data
-        setTimeout(() => {
+        setTimeout(()=>{ 
             this.generate();
         }, 2000);
     }
 
     waitTimesInfo = () => {
         API.getWaitTimes()
-            .then(res => {
-                this.setState({
-                    waitTimes: res.data
-                })
+        .then(res => {
+            this.setState({
+                waitTimes: res.data
             })
-            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));    
     };
 
     generate = () => {
-        const event = this.props.recieveEvent;
+        const event  = this.props.recieveEvent;
         let key = JSON.stringify(event.uniqueKey);
         let cleanKey = key.replace(/['"]+/g, '');
 
@@ -45,11 +45,11 @@ class Everyone extends Component {
 
         //Firebase call and logic to populate things
         let everyonesChoices = firebase.database().ref("events/" + cleanKey);
-        everyonesChoices.on("value", (snapshot) => {
-
+        everyonesChoices.on("value", (snapshot)=>{
+            
             console.log("This is the snapshot: " + JSON.stringify(snapshot.val()));
             //Loop through the data
-            snapshot.forEach((childSnap) => {
+            snapshot.forEach((childSnap)=>{
                 //User input data
                 let listShell = document.getElementById("list-holder");
                 //Group key
@@ -59,57 +59,48 @@ class Everyone extends Component {
                 let key2ref = everyonesChoices.child(childSnap.key);
                 console.log("User key: " + key2ref);
                 //Pull the information nested in the unique user key
-                key2ref.once("value", (snapshot) => {
-                    snapshot.forEach((child) => {
+                key2ref.once("value", (snapshot)=>{ 
+                    snapshot.forEach((child)=>{
                         let childItem = []
                         childItem.push(child.val());
                         // console.log(child.key+": " + child.val());                        
                         // console.log("Child val: " + child.val());                        
-
-                    }).then((childItem) => {
+                        
+                    }).then((childItem)=>{
                         console.log(JSON.stringify(childItem));
-
+                        
                     })
+
+
+
+                    // let usersGroup = childSnap.group;
+                    // let person = childSnap.user;
+                    // console.log("Second User info: " + JSON.stringify(userInfo));
+                    // //HTML tags for the loop
+                    // let ul = document.createElement("ul").setAttribute("className","collapsible popout");
+                    // let userListItem = document.createElement("li").setAttribute("id","user-list-item");
+                    // let header = document.createElement("div").setAttribute("className","collapsible-header");
+                    // let body = document.createElement("div").setAttribute("className","collapsible-body");
+                    // //Place user name into the header portion of div
+                    // header.innerText = person;
+                    // //Place user choices into body portion of div
+                    // body.innerText = chosen;
+                    // //Append both header & body into the list item
+                    // userListItem.appendChild(header);
+                    // userListItem.appendChild(body);
+                    // //Append list item into unordered list
+                    // ul.appendChild(userListItem);
+                    // //Finally, append unordered list into div shell where all will be populated
+                    // listShell.appendChild(ul);
+
+
                 })
-            })
-        })
+                
+                
+            }) 
+        });
+        
     }
-
-    sendInvite = () => {
-        let uniqueKey = this.props.recieveEvent.uniqueKey
-        let ref = firebase.database().ref("events/" + uniqueKey);
-        ref.once("value")
-            .then(function (snapshot) {
-                let groupName = snapshot.child("groupName").val();
-                let user = snapshot.child("user").val();
-                let id = snapshot.child("user/id").val();
-                let choices = snapshot.child("user/choices").val();
-                let userName = snapshot.child("user/userName").val();
-                console.log(snapshot);
-                console.log("Group Name: " + groupName + "\n" + "Choices: " + choices);
-            });
-    }
-
-    // let usersGroup = childSnap.group;
-    // let person = childSnap.user;
-    // console.log("Second User info: " + JSON.stringify(userInfo));
-    // //HTML tags for the loop
-    // let ul = document.createElement("ul").setAttribute("className","collapsible popout");
-    // let userListItem = document.createElement("li").setAttribute("id","user-list-item");
-    // let header = document.createElement("div").setAttribute("className","collapsible-header");
-    // let body = document.createElement("div").setAttribute("className","collapsible-body");
-    // //Place user name into the header portion of div
-    // header.innerText = person;
-    // //Place user choices into body portion of div
-    // body.innerText = chosen;
-    // //Append both header & body into the list item
-    // userListItem.appendChild(header);
-    // userListItem.appendChild(body);
-    // //Append list item into unordered list
-    // ul.appendChild(userListItem);
-    // //Finally, append unordered list into div shell where all will be populated
-    // listShell.appendChild(ul);
-
 
     render(content) {
         return (
@@ -120,12 +111,11 @@ class Everyone extends Component {
                             <h2>This is the very beginning of your groups day</h2>
                             <h6>Click the share button to invite friends, and see which ride they'd like to go on</h6>
                         </div>
-                        <div id="list-holder">{this.props.recieveEvent.userChoices}</div>
+                        <div id="list-holder">{/*Items populated dynamically here*/}</div>
                     </div>
                 </div>
             </div>
         );
     }
 };
-
 export default Everyone;

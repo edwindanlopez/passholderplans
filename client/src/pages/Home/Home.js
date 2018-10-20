@@ -18,7 +18,7 @@ class Home extends Component{
 
     componentDidMount = ()=> {
 		this.setState({
-			activeComponent: "attractions"
+			activeComponent: "parkselect"
 		});
     }
 
