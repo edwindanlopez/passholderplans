@@ -15,84 +15,86 @@ class Everyone extends Component {
         //Generate firebase data
         setTimeout(()=>{ 
             this.generate();
+            //Materialize accordion
+                var elems = document.querySelectorAll('.collapsible');
+                var instances = materialize.Collapsible.init(elems,{});
         }, 2000);
     }
 
 
 
     generate = () => {
+        setTimeout(()=>{ 
+            //Initiate Materialize
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = materialize.Collapsible.init(elems,{});
+        }, 2000);
         //Grab the unique event key to populate the group name
         console.log("User id coming from home: " + this.props.creds.userId)
         console.log("Username coming from home: " + this.props.creds.username)
         console.log("Latestevent coming from home: " + this.props.recieveEvent)
-
-        const userId = this.props.creds.userId;
-        const username = this.props.creds.username;
+        
         const event = this.props.recieveEvent;
-        const groupNameHolder = [];
-
+        //Target the unique event key for referencing in firebase
         let groupnameRef = firebase.database().ref("events/" + event);
         groupnameRef.on("value", (snapshot)=> { 
-            //Set the group name
-            let theName =  snapshot.val().groupName;
+            
+            let groupName =  snapshot.val().groupName;
+            const userId = this.props.creds.userId;
+            const username = this.props.creds.username;
             
             //Do another firebase call to get the user choices
-            let choices=[];
             let userChoiceRef = firebase.database().ref("users/" + userId);
             userChoiceRef.on("value",(snapshot)=>{
-                choices.push(snapshot.val().choices);
-                console.log(choices);
+                //Store user choices
+                let choices= snapshot.val().choices;
+
+                //Trigger list open and close
+                let expandList = ()=> {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var elem = document.querySelector("popable");
+                        let instance = new materialize.Collapsible.getInstance(elem,{});
+                        instance.open();
+                    });
+                }
+
+                const displayOnPage = () => {
+                    //Display that data on the page
+                    let listShell = document.getElementById("list-holder");
+                    let ul = document.createElement("ul");
+                    ul.setAttribute("class","collapsible popout");
+                    //Call Trigger function here
+                    ul.addEventListener('click', ()=> {
+                        expandList();
+                    }, false)
+                    let li = document.createElement("li")
+                    li.setAttribute("id", "user-list-item popable");
+                    li.setAttribute("class", "active");
+                    let header = document.createElement("div")
+                    header.setAttribute("class", "collapsible-header");
+                    let body = document.createElement("div")
+                    body.setAttribute("class", "collapsible-body");
+                    //Place user name into the header portion of div
+                    header.innerText = username;
+                    //Place user choices into body portion of div
+                    body.innerText = choices;
+                    //Append both header & body into the list item
+                    li.appendChild(header);
+                    li.appendChild(body);
+                    //Append list item into unordered list
+                    ul.appendChild(li);
+                    //Finally, append unordered list into div shell where all will be populated
+                    listShell.appendChild(ul);
+                }
+                displayOnPage();
+
             })
             
+
+
         })
 
-        //Trigger list open and close
-        let expandList = ()=> {
-
-            document.addEventListener('DOMContentLoaded', function() {
-                
-                //Materialize accordion
-                var elems = document.querySelectorAll('.collapsible');
-                var instances = materialize.Collapsible.init(elems,{});
-
-                var elem = document.querySelector("popable");
-                let instance = new materialize.Collapsible.getInstance(elem,{});
-                instance.open();
-
-            });
-            
-            
-
-        }
-
-        const displayOnPage = () => {
-            //Display that data on the page
-            let listShell = document.getElementById("list-holder");
-            let ul = document.createElement("ul");
-            ul.setAttribute("class","collapsible popout");
-            //Call Trigger function here
-            ul.addEventListener('click', ()=> {
-                expandList();
-            }, false)
-            let li = document.createElement("li")
-            li.setAttribute("id", "user-list-item popable");
-            let header = document.createElement("div")
-            header.setAttribute("class", "collapsible-header");
-            let body = document.createElement("div")
-            body.setAttribute("class", "collapsible-body");
-            //Place user name into the header portion of div
-            header.innerText = username;
-            //Place user choices into body portion of div
-            body.innerText = "choices";
-            //Append both header & body into the list item
-            li.appendChild(header);
-            li.appendChild(body);
-            //Append list item into unordered list
-            ul.appendChild(li);
-            //Finally, append unordered list into div shell where all will be populated
-            listShell.appendChild(ul);
-        }
-        displayOnPage();
+        
 
 
         //Firebase call and logic to populate things
@@ -109,7 +111,7 @@ class Everyone extends Component {
         //         //Group key
         //         let groupKey = childSnap.key;
         //         console.log("Group key: " + groupKey);
-        //         //Reference the unique user key
+        //         //Reference the unique user key 
         //         let key2ref = everyonesChoices.child(childSnap.key);
         //         console.log("User key: " + key2ref);
         //         //Pull the information nested in the unique user key
