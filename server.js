@@ -26,7 +26,6 @@ require('./config/passport.js')(passport,models.User);
 const routes = require("./routes")(passport);
 app.use('/',routes);
 
-
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
