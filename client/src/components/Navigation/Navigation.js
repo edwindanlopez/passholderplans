@@ -27,6 +27,7 @@ class Navigation extends Component {
                 <nav>
                     <div className="nav-wrapper">
                     <a href="#!" className="brand-logo">Passholder Plans</a>
+                    
                     <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                     <ul className="right hide-on-med-and-down">
                         <li>

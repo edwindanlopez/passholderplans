@@ -15,6 +15,7 @@ class App extends Component {
     email: "",
     username: "",
     password: "",
+    events: [],
     auth: {
       userId:"",
       username:"",
@@ -24,7 +25,7 @@ class App extends Component {
 
   componentWillMount(){
     axios.get("/auth/isAuthenticated").then((result)=>{
-      const {userId, firstName, lastName, fullName, email, username, isAuthenticated} = result.data
+      const {userId, firstName, lastName, fullName, email, username, isAuthenticated, events} = result.data
       this.setState({
         auth:{
           userId,
@@ -33,6 +34,7 @@ class App extends Component {
           fullName,
           email,
           username,
+          events,
           isAuthenticated
         }
       });
@@ -57,7 +59,8 @@ class App extends Component {
       fullName: this.state.firstName + " " + this.state.lastName,
       email: this.state.email,
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      events: this.state.events
     };
     this.setState({
       firstName: "",
@@ -67,16 +70,13 @@ class App extends Component {
       password: ""
     }); 
     const {name} = event.target;//Grabs the "name" data property from the button, which has the specific route: /auth/signup, which is the signup route
-
     console.log("Logging NewUser" + JSON.stringify(newUser));
 
     axios.post(name, newUser).then((data) => {
-
       console.log("Logging the data: " + JSON.stringify(data));
-
       if (data.data.isAuthenticated){
-        const {userId, isAuthenticated, firstName, lastName, email, username} = data.data;
-        console.log(userId, firstName, lastName, email, isAuthenticated, username);
+        const {userId, isAuthenticated, firstName, lastName, email, username, events} = data.data;
+        // console.log("Handle submit: " +userId, firstName, lastName, email, isAuthenticated, username, events);
         this.setState({
           auth:{
             userId,
@@ -84,6 +84,7 @@ class App extends Component {
             lastName,
             email,
             username,
+            events,
             isAuthenticated,
           }
         });
@@ -105,6 +106,7 @@ class App extends Component {
           userId: "",
           fullName: "",
           username: "",
+          events: [],
           isAuthenticated: false
         }
       });
