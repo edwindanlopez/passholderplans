@@ -11,17 +11,15 @@ class Everyone extends Component {
     };
 
     componentDidMount() {
-
         //Generate firebase data
         setTimeout(()=>{ 
             this.generate();
+            // this.listenForListing();
             //Materialize accordion
                 var elems = document.querySelectorAll('.collapsible');
                 var instances = materialize.Collapsible.init(elems,{});
         }, 2000);
     }
-
-
 
     generate = () => {
         setTimeout(()=>{ 
@@ -33,11 +31,11 @@ class Everyone extends Component {
         console.log("User id coming from home: " + this.props.creds.userId)
         console.log("Username coming from home: " + this.props.creds.username)
         console.log("Latestevent coming from home: " + this.props.recieveEvent)
-        
+
         const event = this.props.recieveEvent;
         //Target the unique event key for referencing in firebase
         let groupnameRef = firebase.database().ref("events/" + event);
-        groupnameRef.on("value", (snapshot)=> { 
+        groupnameRef.once("value").then((snapshot)=> { 
             
             let groupName =  snapshot.val().groupName;
             const userId = this.props.creds.userId;
@@ -45,7 +43,7 @@ class Everyone extends Component {
             
             //Do another firebase call to get the user choices
             let userChoiceRef = firebase.database().ref("users/" + userId);
-            userChoiceRef.on("value",(snapshot)=>{
+            userChoiceRef.once("value").then((snapshot)=>{
                 //Store user choices
                 let choices= snapshot.val().choices;
 
@@ -88,59 +86,79 @@ class Everyone extends Component {
                 }
                 displayOnPage();
 
-            })
-            
+            });//userchoice end
+        })        
+    }
 
+    listenForListing = ()=> {
+        setTimeout(()=>{ 
+            //Initiate Materialize
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = materialize.Collapsible.init(elems,{});
+        }, 1000);
 
-        })
+        const event = this.props.recieveEvent;
+        //Target the unique event key for referencing in firebase
+        let groupnameRef = firebase.database().ref("events/" + event);
+        groupnameRef.on("value", (snapshot)=> { 
 
-        
+            //For each user id in the event branch, get the username and their choices
+            snapshot.forEach((childsnapshot)=>{
+                const userId = childsnapshot.key;
 
+                //make another snapshot call yet again, but this time for the users branch
+                let userNameRef = firebase.database().ref("users/" + userId);
+                userNameRef.once("value").then((grandchildSnap)=> {
 
-        //Firebase call and logic to populate things
-        // let everyonesChoices = firebase.database().ref("events/" + cleanKey);
+                    let user = JSON.stringify(grandchildSnap.val().username);
+                    let username = user;
+                    
+                    let choosy = JSON.stringify(grandchildSnap.val().choices);
+                    let choices = choosy;
 
+                    //Trigger list open and close
+                    let expandList = ()=> {
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var elem = document.querySelector("popable");
+                            let instance = new materialize.Collapsible.getInstance(elem,{});
+                            instance.open();
+                        });
+                    }             
 
-        // everyonesChoices.on("value", (snapshot)=>{
-            
-        //     console.log("This is the snapshot: " + JSON.stringify(snapshot.val()));
-        //     //Loop through the data
-        //     snapshot.forEach((childSnap)=>{
-        //         //User input data
-        //         
-        //         //Group key
-        //         let groupKey = childSnap.key;
-        //         console.log("Group key: " + groupKey);
-        //         //Reference the unique user key 
-        //         let key2ref = everyonesChoices.child(childSnap.key);
-        //         console.log("User key: " + key2ref);
-        //         //Pull the information nested in the unique user key
-        //         key2ref.once("value", (snapshot)=>{ 
-        //             snapshot.forEach((child)=>{
-        //                 let childItem = []
-        //                 childItem.push(child.val());
-        //                 // console.log(child.key+": " + child.val());                        
-        //                 // console.log("Child val: " + child.val());                        
-                        
-        //             }).then((childItem)=>{
-        //                 console.log(JSON.stringify(childItem));
-                        
-        //             })
-
-
-
-        //             let usersGroup = childSnap.group;
-        //             let person = childSnap.user;
-        //             console.log("Second User info: " + JSON.stringify(userInfo));
+                    const displayOnPage = () => {
+                        //Display that data on the page
+                        let listShell = document.getElementById("list-holder");
+                        let ul = document.createElement("ul");
+                        ul.setAttribute("class","collapsible popout");
+                        //Call Trigger function here
+                        ul.addEventListener('click', ()=> {
+                            expandList();
+                        }, false)
+                        let li = document.createElement("li")
+                        li.setAttribute("id", "user-list-item popable");
+                        let header = document.createElement("div")
+                        header.setAttribute("class", "collapsible-header");
+                        let body = document.createElement("div")
+                        body.setAttribute("class", "collapsible-body");
+                        //Place user name into the header portion of div
+                        header.innerText = username;
+                        //Place user choices into body portion of div
+                        body.innerText = choices;
+                        //Append both header & body into the list item
+                        li.appendChild(header);
+                        li.appendChild(body);
+                        //Append list item into unordered list
+                        ul.appendChild(li);
+                        //Finally, append unordered list into div shell where all will be populated
+                        listShell.appendChild(ul);
+                    }
+                    displayOnPage();
                     
 
-
-        //         })
-                
-                
-        //     }) 
-        // });//End everyones choices
-        
+                    
+                })
+            })
+        });
     }
 
     render(content) {
