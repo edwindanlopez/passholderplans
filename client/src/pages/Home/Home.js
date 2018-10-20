@@ -18,7 +18,7 @@ class Home extends Component{
 
     componentDidMount = ()=> {
 		this.setState({
-			activeComponent: "everyone"
+			activeComponent: "parkselect"
 		});
     }
 
