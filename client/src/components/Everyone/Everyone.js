@@ -4,7 +4,6 @@ import materialize from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/css/materialize.min.css";
 import API from "../../utils/API";
 import firebase from "../../firebase";
-import Share from "../Share"
 
 class Everyone extends Component {
 
@@ -35,12 +34,14 @@ class Everyone extends Component {
 
     generate = () => {
         const event  = this.props.recieveEvent;
-        // let key = JSON.stringify(event.uniqueKey);
-        let key = "-LP3bWQw6heItSbIEBrh";
+        let key = JSON.stringify(event.uniqueKey);
+        // let key = "-LP3bWQw6heItSbIEBrh";
         let group = JSON.stringify(event.groupName);
         let user = JSON.stringify(event.username);
         let choices = JSON.stringify(event.userChoices);
-        
+        console.log(key);
+
+        // IN PROCESS
         let everyonesChoices = firebase.database().ref("events" + key);
         everyonesChoices.on('child_added', (data)=>{
             console.log("This is the data group: " + data.group);
@@ -50,11 +51,25 @@ class Everyone extends Component {
         let displayListing = ()=> {
 
         }
+    }
 
-
+    sendInvite = () => {
+        let uniqueKey = this.props.recieveEvent.uniqueKey
+        let ref = firebase.database().ref("events/" + uniqueKey);
+        ref.once("value")
+            .then(function (snapshot) {
+                let groupName = snapshot.child("groupName").val();
+                let user = snapshot.child("user").val();
+                let id = snapshot.child("user/id").val();
+                let choices = snapshot.child("user/choices").val();
+                let userName = snapshot.child("user/userName").val();
+                console.log(snapshot);
+                console.log("Group Name: " + groupName + "\n" + "Choices: " + choices);
+            });
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <div className="container">
@@ -65,7 +80,7 @@ class Everyone extends Component {
                             <ul className="collapsible popout">
                                 <li>
                                 <div className="collapsible-header"><i className="material-icons">filter_drama</i>First</div>
-                                <div className="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                <div className="collapsible-body"><span>{this.props.recieveEvent.userChoices}</span></div>
                                 </li>
                                 <li>
                                 <div className="collapsible-header"><i className="material-icons">place</i>Second</div>
@@ -77,7 +92,9 @@ class Everyone extends Component {
                                 </li>
                             </ul>
                         </div>
-                        <Share event={this.props.event} key={this.key} group={this.group} choices={this.choices}/>
+                        <button onClick={() => this.sendInvite(this.key)}>
+                            Send Invite
+                        </button>
                     </div>
                 </div>
             </div>

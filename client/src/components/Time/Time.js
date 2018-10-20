@@ -13,11 +13,11 @@ class Time extends Component{
 
     toggleSwitch = (event) => {
         //Store id value to pass as prop to parent in the input callback
-        let rideId = event.target.value;
+        let rideName = event.target.value;
         let active = event.target.checked;
 
         const parentFunction = () =>{
-            this.props.choice(rideId, active, event)
+            this.props.choice(rideName, active, event)
         }
         //Immediately call this
         parentFunction();
@@ -37,7 +37,7 @@ class Time extends Component{
                                 <div className="switch">
                                     <label>
                                         {/* Off */}
-                                        <input id={this.props.id} type="checkbox" value={this.props.rideId} onClick={this.toggleSwitch}/>
+                                        <input id={this.props.id} type="checkbox" value={this.props.name} onClick={this.toggleSwitch}/>
                                         <span className="lever"></span>
                                         {/* On */}
                                     </label>
